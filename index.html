@@ -66,10 +66,11 @@
     display: flex; align-items: center; justify-content: space-between;
   }
   .nav-logo {
-    font-family: 'Noto Sans KR', sans-serif;
-    font-size: 1.25rem; font-weight: 700;
-    color: #fff; text-decoration: none; letter-spacing: 0.01em;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
   }
+  
   .nav-logo span { color: var(--accent); }
   .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
   .nav-links a {
@@ -345,9 +346,7 @@
 
   /* ━━━━ FOOTER ━━━━ */
   footer { background: #111111; padding: 56px 0 40px; }
-  .footer-logo { display: flex; align-items: flex-end; gap: 0.5rem; margin-bottom: 36px; }
-  .footer-logo-text { font-size: 2.2rem; font-weight: 700; color: #fff; line-height: 1; }
-  .footer-logo-sub { font-size: 0.7rem; color: rgba(255,255,255,0.3); letter-spacing: 0.04em; padding-bottom: 0.25rem; font-weight: 300; }
+  .footer-logo { display: flex; align-items: flex-end; gap: 0.5rem; margin-bottom: 20px; margin-left: -10px; }
   .footer-divider { border: none; border-top: 1px solid rgba(255,255,255,0.08); margin: 0 0 26px 0; }
   .footer-info { font-size: 0.83rem; line-height: 2.1; color: rgba(255,255,255,0.42); font-weight: 300; }
   .footer-info strong { font-weight: 500; color: rgba(255,255,255,0.62); }
@@ -463,7 +462,9 @@
 <!-- NAV -->
 <nav id="mainNav">
   <div class="nav-inner">
-    <a class="nav-logo" href="#">Pet <span>Space</span></a>
+    <a class="nav-logo" href="#">
+  <img src="logo.svg" alt="Pet Space" height="45">
+</a>
     <ul class="nav-links">
       <li><a href="#features">서비스</a></li>
       <li><a href="#how">이용방법</a></li>
@@ -616,9 +617,8 @@
 <footer>
   <div class="container">
     <div class="footer-logo">
-      <span class="footer-logo-text">JENA</span>
-      <span class="footer-logo-sub">PJH.K</span>
-    </div>
+    <img src="jena-logo.svg" alt="JENA" height="80">
+  </div>
     <hr class="footer-divider">
     <div class="footer-info">
       <span class="row">
@@ -637,7 +637,7 @@
       <span class="sep">｜</span>
       <button onclick="openModal('privacy')">개인정보 수집 및 이용 동의</button>
     </div>
-    <div class="footer-copyright">© 2025 JENA Co., Ltd. All Rights Reserved.</div>
+    <div class="footer-copyright">© JENA Co., Ltd. All Rights Reserved.</div>
   </div>
 </footer>
 
