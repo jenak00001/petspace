@@ -472,6 +472,44 @@
     .hero-cards { grid-template-columns: 1fr 1fr; }
     .modal-tab { font-size: 0.76rem; padding: 0.7rem 0.6rem; }
   }
+
+    #fa-popup-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    z-index: 99999;
+    align-items: center;
+    justify-content: center;
+  }
+  #fa-popup {
+    width: 90%;
+    max-width: 480px;          /* 팝업 가로 크기 조정 */
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  }
+  #fa-popup img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  #fa-popup-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    background: #f5f5f5;
+    font-size: 14px;
+  }
+  #fa-popup-footer button {
+    border: 0;
+    background: none;
+    cursor: pointer;
+    font-size: 14px;
+    color: #333;
+  }
 </style>
 </head>
 <body>
@@ -665,6 +703,19 @@
 <button id="scrollTop" aria-label="맨 위로">
   <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"></polyline></svg>
 </button>
+
+<div id="fa-popup-overlay">
+  <div id="fa-popup">
+    <!-- href: 연결할 링크 / src: 홍보 이미지 경로 로 수정 -->
+    <a href="https://petspace.jena.io.kr/?utm_source=gm_expo&utm_medium=banner" target="_blank" rel="noopener">
+      <img src="flyasia2026.png" alt="Fly Asia 2026 전시 참가 안내">
+    </a>
+    <div id="fa-popup-footer">
+      <button type="button" id="fa-close-today">오늘 하루 보지 않기</button>
+      <button type="button" id="fa-close">닫기</button>
+    </div>
+  </div>
+</div>
 
 <!-- MODAL -->
 <div class="modal-overlay" id="legalModal" onclick="handleOverlayClick(event)">
@@ -1172,6 +1223,38 @@
     document.querySelectorAll('.modal-panel').forEach(p => p.classList.toggle('active', p.id === 'panel-' + tab));
   }
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+(function () {
+  // 게시기간 (한국시간 기준)
+  var START = new Date('2026-10-06T00:00:00+09:00');
+  var END   = new Date('2026-10-08T23:59:59+09:00');
+  var KEY   = 'flyasia2026_hide_until';
+ 
+  var now = new Date();
+  if (now < START || now > END) return;                     // 기간 외 미노출
+ 
+  var hideUntil = localStorage.getItem(KEY);
+  if (hideUntil && now.getTime() < Number(hideUntil)) return; // 오늘 하루 보지 않기
+ 
+  var overlay = document.getElementById('fa-popup-overlay');
+  overlay.style.display = 'flex';
+ 
+  function close() { overlay.style.display = 'none'; }
+ 
+  document.getElementById('fa-close').onclick = close;
+  document.getElementById('fa-close-today').onclick = function () {
+    var tomorrow = new Date();
+    tomorrow.setHours(24, 0, 0, 0);                         // 오늘 자정까지 숨김
+    localStorage.setItem(KEY, tomorrow.getTime());
+    close();
+  };
+  overlay.addEventListener('click', function (e) {          // 배경 클릭 시 닫기
+    if (e.target === overlay) close();
+  });
+})();
+</script>
+ 
+
 </script>
 </body>
 </html>
